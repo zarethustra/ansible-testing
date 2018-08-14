@@ -3,11 +3,19 @@
   ios_command:
     commands: "dir flash:"
   register: dir
-- debug: var=dir
+# - debug: var=dir
 
-- debug:
-    msg: "Output {{dir.stdout[0]}} | regex_search(ios_version)}}"
-    # vars:
+
+- name: set loaded
+  set_fact:
+    on_flash: "{{dir.stdout[0] | regex_findall(ios_version) | ternary('yes','no')}}"
+    
+
+- debug: var=on_flash
+
+# - debug:
+#     msg: "Output {{dir.stdout[0]}} | regex_search(ios_version)}}"
+#     # vars:
     #   regexp: '\d'
 
 # - debug:
