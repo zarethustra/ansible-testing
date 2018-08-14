@@ -8,10 +8,13 @@
 
 - name: set loaded
   set_fact:
-    on_flash: "{{dir.stdout[0] | regex_findall(ios_version) | ternary('yes','no')}}"
-    
+    is_on_flash: "{{dir.stdout[0] | regex_search(ios_version) | ternary('yes','no')}}"
+    free_space:  "{{dir.stdout[0] | regex_search(ios_freespace_regex)}}"
 
-- debug: var=on_flash
+- debug:
+    msg:
+    - "Is already on flash->{{is_on_flash}}"
+    - "Free space ->{{free_space}}"
 
 # - debug:
 #     msg: "Output {{dir.stdout[0]}} | regex_search(ios_version)}}"
