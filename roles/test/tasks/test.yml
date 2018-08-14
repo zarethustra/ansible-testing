@@ -13,8 +13,13 @@
 
 - debug:
     msg:
-    - "Is already on flash->{{is_on_flash}}"
-    - "Free space ->{{free_space}}"
+      - "Is already on flash->{{is_on_flash}}"
+      - "Free space ->{{free_space}}"
+
+- debug:
+    msg:
+      - "Copying file to flash"
+  when: (not is_on_flash) and (free_space | int) > (ios_filesize | int)
 
 # - debug:
 #     msg: "Output {{dir.stdout[0]}} | regex_search(ios_version)}}"
