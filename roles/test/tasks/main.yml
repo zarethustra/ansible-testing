@@ -1,0 +1,4 @@
+---
+- name:     Update IOS.
+  include:  test.yml
+  tags:     test
